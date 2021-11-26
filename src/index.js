@@ -1,11 +1,13 @@
 import fetchImages from './fetchData';
 import './sass/main.scss';
 import Notiflix from 'notiflix';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const refs = {
 	inputEl: document.querySelector('input'),
 	btnEl: document.querySelector('.btn'),
-	listEl: document.querySelector('.list'),
+	listEl: document.querySelector('.gallery'),
 	btnLoaderEl: document.querySelector('.btn-load'),
 };
 
@@ -37,6 +39,7 @@ function createMarkup() {
 				refs.btnLoaderEl.classList.add('is-active');
 			}
 			refs.listEl.innerHTML = markup(promise);
+			counter = 1;
 		});
 }
 
@@ -53,9 +56,11 @@ function loadMorePhotos() {
 
 function markup(photos) {
 	const markup = photos
-		.map(({ webformatURL, tags, likes, views, comments, downloads }) => {
+		.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
 			return `<div class="photo-card">
-						<img src="${webformatURL}" alt="${tags}" width="250px" heigth="140px" loading="lazy" />
+					<a class="gallery-item" href="${largeImageURL}">
+						<img src="${webformatURL}" alt="${tags}" title="" width="250px" heigth="140px" loading="lazy" />
+						</a>
 						<div class="info">
 						<p class="info-item">
 							<b class="info-heading">Likes</b>
@@ -87,3 +92,10 @@ function markup(photos) {
 refs.inputEl.addEventListener('input', inputValue);
 refs.btnEl.addEventListener('click', createMarkup);
 refs.btnLoaderEl.addEventListener('click', loadMorePhotos);
+
+let gallery = new SimpleLightbox('.gallery a', { captionDelay: 250 });
+gallery.on('show.simplelightbox', function () {});
+
+gallery.on('error.simplelightbox', function (e) {
+	console.log(e); // some usefull information
+});

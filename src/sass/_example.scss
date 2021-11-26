@@ -23,14 +23,13 @@ body {
   margin: 0 auto;
 }
 
-.list {
+.gallery {
   padding: 50px 10px 10px 10px;
   display: flex;
   flex-wrap: wrap;
 }
 
 .photo-card {
-  cursor: pointer;
   border-radius: 3px;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
   margin-top: 20px;
