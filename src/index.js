@@ -40,6 +40,7 @@ function createMarkup() {
 			}
 			refs.listEl.innerHTML = markup(promise);
 			counter = 1;
+			gallery.refresh();
 		});
 }
 
@@ -51,6 +52,7 @@ function loadMorePhotos() {
 			refs.btnLoaderEl.classList.remove('is-active');
 		}
 		refs.listEl.insertAdjacentHTML('beforeend', markup(promise.hits));
+		gallery.refresh();
 	});
 }
 
@@ -59,7 +61,7 @@ function markup(photos) {
 		.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
 			return `<div class="photo-card">
 					<a class="gallery-item" href="${largeImageURL}">
-						<img src="${webformatURL}" alt="${tags}" title="" width="250px" heigth="140px" loading="lazy" />
+						<img src="${webformatURL}" alt="${tags}" title="${tags}" width="250px" heigth="140px" loading="lazy" />
 						</a>
 						<div class="info">
 						<p class="info-item">
@@ -95,7 +97,3 @@ refs.btnLoaderEl.addEventListener('click', loadMorePhotos);
 
 let gallery = new SimpleLightbox('.gallery a', { captionDelay: 250 });
 gallery.on('show.simplelightbox', function () {});
-
-gallery.on('error.simplelightbox', function (e) {
-	console.log(e); // some usefull information
-});
