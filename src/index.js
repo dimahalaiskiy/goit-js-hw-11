@@ -41,7 +41,6 @@ function createMarkup() {
 			}
 			refs.listEl.innerHTML = markup(promise);
 			gallery.refresh();
-			smoothScroll();
 		});
 }
 
