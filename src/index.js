@@ -20,6 +20,7 @@ function inputValue(e) {
 }
 
 function createMarkup() {
+	counter = 1;
 	fetchImages(searchKey, counter)
 		.then(promise => {
 			totalHits = promise.totalHits;
@@ -39,7 +40,6 @@ function createMarkup() {
 				refs.btnLoaderEl.classList.add('is-active');
 			}
 			refs.listEl.innerHTML = markup(promise);
-			counter = 1;
 			gallery.refresh();
 		});
 }
