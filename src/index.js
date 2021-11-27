@@ -41,6 +41,7 @@ function createMarkup() {
 			}
 			refs.listEl.innerHTML = markup(promise);
 			gallery.refresh();
+			smoothScroll();
 		});
 }
 
@@ -53,6 +54,7 @@ function loadMorePhotos() {
 		}
 		refs.listEl.insertAdjacentHTML('beforeend', markup(promise.hits));
 		gallery.refresh();
+		smoothScroll();
 	});
 }
 
@@ -89,6 +91,14 @@ function markup(photos) {
 		})
 		.join('');
 	return markup;
+}
+
+function smoothScroll() {
+	const { height: cardHeight } = refs.listEl.firstElementChild.getBoundingClientRect();
+	window.scrollBy({
+		top: cardHeight * 2,
+		behavior: 'smooth',
+	});
 }
 
 refs.inputEl.addEventListener('input', inputValue);
